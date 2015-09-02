@@ -3,26 +3,20 @@ var fs = require ('fs');
 var util = require ('util');
 var ee = require ('events').EventEmitter;
 
-exports.Rom = function () {
+exports.Memory = function () {
 	this.bytes = null;
 	ee.call (this);
 }
 
-util.inherits (exports.Rom, ee);
+util.inherits (exports.Memory, ee);
 
-exports.Rom.prototype.load = function (path) {
+exports.Memory.prototype.loadFile = function (path) {
 	
 	var obj = this;
-	var offset = 0;
 	var stat = fs.statSync (path);
-	
-	// Some ROMs have a superflous 512 byte header.
-	if (stat['size'] % 1024) {
-		offset = 512;
-	}
-	
-	this.bytes = new Buffer (stat['size'] - offset);			
-	var readable = fs.createReadStream (path, { start : offset });
+		
+	this.bytes = new Buffer (stat['size']);			
+	var readable = fs.createReadStream (path);
 	
 	readable
 		.on ('data', function (chunk) {

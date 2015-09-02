@@ -1,10 +1,10 @@
 
 var ipc = require ('ipc');
-var Rom = require ('./rom.js');
+var Memory = require ('./memory.js');
 
 var groups_per_line = 4;
 var groups = [];
-var rom = null;
+var memory = null;
 
 /**
  * The ByteGroup object maintains the HTML representation for a group
@@ -51,16 +51,16 @@ var ByteGroup = function (bytes) {
  */
 ipc.on ('load-rom', function (path) {
 	
-	rom = new Rom.Rom ();
+	memory = new Memory.Memory ();
 	
-	rom.on ('chunk', function (chunk) {
+	memory.on ('chunk', function (chunk) {
 		for (var k=0; k < chunk.length; k += 8) {
 			groups.push (new ByteGroup (chunk.slice (k, k + 8)));
 		}		
 	})
 	.on ('done', render);
 	
-	rom.load (path);
+	memory.loadFile (path);
 });
 
 /**
