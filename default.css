@@ -1,0 +1,56 @@
+* {
+	font-family: monospace;
+	font-size: 14px;	
+}
+
+html {
+	margin: 0px;
+	padding: 0px;
+}
+
+body {
+	padding: 0px;
+	margin: 0px;
+	background-color: #FFFFFF;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+}
+
+.row:nth-child(even) {
+	background-color: #F1F1F1;
+}
+
+.addr {
+	display: inline;
+	color: #000000;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.byte {
+	display: inline;
+	padding-left: 2px;
+	padding-right: 2px;
+	color: #093C83;
+}
+
+.gap {
+	padding-right: 10px;
+	display: inline;
+}
+
+.ascii {
+	display: inline;
+	color: #000000;
+}
+
+#status {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 20px;
+	background-color: #000000;
+}
