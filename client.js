@@ -49,7 +49,7 @@ var ByteGroup = function (bytes) {
 /**
  * Get notified when a new ROM has been selected.
  */
-ipc.on ('load-rom', function (path) {
+ipc.on ('load-file', function (path) {
 	
 	memory = new Memory.Memory ();
 	
