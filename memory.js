@@ -11,7 +11,7 @@ exports.Memory = function () {
 util.inherits (exports.Memory, ee);
 
 exports.Memory.prototype.loadFile = function (path) {
-	
+		
 	var obj = this;
 	var stat = fs.statSync (path);
 		

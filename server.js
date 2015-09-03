@@ -12,8 +12,8 @@ require('crash-reporter').start();
 /**
  * Open a ROM for a disassembly.
  */
-function openRom (filenames) {  
-  mainWindow.webContents.send ('load-rom', filenames[0]);
+function openFile (filenames) {  
+  mainWindow.webContents.send ('load-file', filenames[0]);
 }
 
 /**
@@ -27,12 +27,12 @@ function openFileDialog () {
   ];
   
   var options = { 
-    title: "Open ROM...", 
+    title: "Open File...", 
     properties: ['openFile'],
     filters: filters 
   }; 
   
-  dialog.showOpenDialog (mainWindow, options, openRom);
+  dialog.showOpenDialog (mainWindow, options, openFile);
 }
 
 /**
