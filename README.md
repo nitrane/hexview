@@ -1,6 +1,6 @@
 # hexview
 
-My WIP electron based hex editor.
+A WIP electron based hex editor.
 
 
 Setup
