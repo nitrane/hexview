@@ -83,6 +83,11 @@ function render () {
 		node.appendChild (address_node);
 			
 		for (var j=0; j < groups_per_line; ++j) {
+			
+			if (k+j == groups.length) {
+				continue;
+			}
+			
 			node.appendChild (groups[k+j].hex_frag);
 			ascii_frag.appendChild (groups[k+j].ascii_frag);	
 		}
