@@ -22,7 +22,6 @@ function openFile (filenames) {
 function openFileDialog () {
   
   var filters = [
-    { name: 'SMS Files', extensions: ['sms'] },
     { name: 'All Files', extensions: ['*'] }
   ];
   
