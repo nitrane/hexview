@@ -51,12 +51,13 @@ var ByteGroup = function (bytes) {
  */
 ipc.on ('load-file', function (path) {
 	
+	groups.length = 0;	
 	memory = new Memory.Memory ();
-	
+		
 	memory.on ('chunk', function (chunk) {
 		for (var k=0; k < chunk.length; k += 8) {
 			groups.push (new ByteGroup (chunk.slice (k, k + 8)));
-		}		
+		}
 	})
 	.on ('done', render);
 	
@@ -82,12 +83,7 @@ function render () {
 		address_node.textContent = pad ((k * groups_per_line).toString (16), 8); 
 		node.appendChild (address_node);
 			
-		for (var j=0; j < groups_per_line; ++j) {
-			
-			if (k+j == groups.length) {
-				continue;
-			}
-			
+		for (var j=0; k+j < groups.length && j < groups_per_line; ++j) {			
 			node.appendChild (groups[k+j].hex_frag);
 			ascii_frag.appendChild (groups[k+j].ascii_frag);	
 		}
