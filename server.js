@@ -13,7 +13,7 @@ require('crash-reporter').start();
  * Open a ROM for a disassembly.
  */
 function openFile (filenames) {  
-  mainWindow.webContents.send ('load-file', filenames[0]);
+  mainWindow.send ('load-file', filenames[0]);
 }
 
 /**
