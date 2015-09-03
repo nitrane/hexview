@@ -19,6 +19,15 @@ body {
 	bottom: 0px;
 }
 
+#intro {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	height: 50%;
+	color: #093C83;
+	font-size: 30px;
+}
+
 #container {
 	overflow: hidden;
 	display: table;
@@ -62,12 +71,4 @@ body {
 .ascii {
 	display: inline;
 	color: #000000;
-}
-
-#status {
-	position: fixed;
-	top: 0;
-	left: 0;
-	height: 20px;
-	background-color: #000000;
 }

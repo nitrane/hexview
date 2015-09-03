@@ -52,19 +52,46 @@ var ByteGroup = function (bytes) {
  * Get notified when a new ROM has been selected.
  */
 ipc.on ('load-file', function (path) {
+
+	reset ();	
+	document.querySelector ('#intro').style.display = "none";
 	
-	groups.length = 0;	
-	memory = new Memory.Memory ();
-		
+	memory = new Memory.Memory ();	
 	memory.on ('chunk', function (chunk) {
 		for (var k=0; k < chunk.length; k += 8) {
 			groups.push (new ByteGroup (chunk.slice (k, k + 8)));
 		}
 	})
-	.on ('done', render);
+	.on ('done', function () {
+		render ();
+	});
 	
 	memory.loadFile (path);
 });
+
+/**
+ * Get notified when the file is closed.
+ */
+ipc.on ('close-file', reset);
+
+/**
+ * Reset the view and free up resources.
+ */
+function reset () {
+	
+	document.querySelector ('#intro').style.display = "flex";
+	
+	memory = null;
+	groups.length = 0;
+	
+	var addr = document.querySelector ('#addr');
+	var hex = document.querySelector ('#hex');
+	var ascii = document.querySelector ('#ascii');
+	
+	addr.innerHTML = '';
+	hex.innerHTML = '';
+	ascii.innerHTML = '';
+}
 
 /**
  * Render the hex output of the ROM.
@@ -75,10 +102,6 @@ function render () {
 	var hex = document.querySelector ('#hex');
 	var ascii = document.querySelector ('#ascii');
 	
-	addr.innerHTMl = '';
-	hex.innerHTML = '';
-	ascii.innerHTML = '';
-		
 	for (var k=0; k < groups.length; k += groups_per_line) {
 		
 		var address_node = document.createElement ('div');		
@@ -102,6 +125,9 @@ function render () {
 	}
 }
 
+/**
+ * Simple zero padding function. This needs work.
+ */
 function pad (num, size) {
     var s = "000000000" + num;
     return s.substr (s.length - size);

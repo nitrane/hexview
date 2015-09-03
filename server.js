@@ -67,11 +67,15 @@ app.on('ready', function() {
       label: 'File',
       submenu: [
         { 
-          label: 'Open', 
+          label: 'Open...', 
           click: openFileDialog 
         },
         {
-          label: 'Close',
+          label: "Close",
+          click: function () { mainWindow.send ('close-file'); }
+        },
+        {
+          label: 'Exit',
           click: function () { mainWindow.close (); }
         }
       ],
