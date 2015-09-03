@@ -19,12 +19,29 @@ body {
 	bottom: 0px;
 }
 
+#container {
+	overflow: hidden;
+	display: table;
+	width: 100%;
+}
+
+#addr {
+	display: table-cell;
+}
+
+#hex {
+	display: table-cell;
+}
+
+#ascii {
+	display: table-cell;
+}
+
 .row:nth-child(even) {
 	background-color: #F1F1F1;
 }
 
 .addr {
-	display: inline;
 	color: #000000;
 	padding-left: 10px;
 	padding-right: 10px;

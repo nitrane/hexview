@@ -15,16 +15,14 @@ var ByteGroup = function (bytes) {
 	this.ascii_frag = document.createDocumentFragment ();
 	this.hex_frag = document.createDocumentFragment ();
 	
-	for (var k=0; k < Math.max (bytes.length, 8); ++k) {				
+	for (var k=0; k < bytes.length; ++k) {				
 		
 		var hex_node = document.createElement ('div');
 		var ascii_node = document.createElement ('div');
 		
 		hex_node.className = 'byte';
-		hex_node.textContent = ' ';
 		ascii_node.className = 'ascii';
-		ascii_node.textContent = ' ';
-		
+				
 		this.hex_frag.appendChild (hex_node);
 		this.ascii_frag.appendChild (ascii_node);	
 		
@@ -73,27 +71,34 @@ ipc.on ('load-file', function (path) {
  */
 function render () {
 	
+	var addr = document.querySelector ('#addr');
 	var hex = document.querySelector ('#hex');
+	var ascii = document.querySelector ('#ascii');
+	
+	addr.innerHTMl = '';
 	hex.innerHTML = '';
+	ascii.innerHTML = '';
 		
 	for (var k=0; k < groups.length; k += groups_per_line) {
-				
-		var node = document.createElement ('div');
-		var address_node = document.createElement ('div');					
-		var ascii_frag = document.createDocumentFragment ();
+		
+		var address_node = document.createElement ('div');		
+		var hex_node = document.createElement ('div');
+		var ascii_node = document.createElement ('div');
 
-		node.className = 'row';
-		address_node.className = 'addr';
+		address_node.className = 'row';
+		hex_node.className = 'row';
+		ascii_node.className = 'row';
+		address_node.classList.add ('row', 'addr');
 		address_node.textContent = pad ((k * groups_per_line).toString (16), 8); 
-		node.appendChild (address_node);
+		addr.appendChild (address_node);
 			
 		for (var j=0; k+j < groups.length && j < groups_per_line; ++j) {			
-			node.appendChild (groups[k+j].hex_frag);
-			ascii_frag.appendChild (groups[k+j].ascii_frag);	
+			hex_node.appendChild (groups[k+j].hex_frag);
+			ascii_node.appendChild (groups[k+j].ascii_frag);	
 		}
-		
-		node.appendChild (ascii_frag);
-		hex.appendChild (node);
+
+		hex.appendChild (hex_node);
+		ascii.appendChild (ascii_node);
 	}
 }
 
