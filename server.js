@@ -47,7 +47,7 @@ app.on('window-all-closed', function() {
  * Handle files being openned via the shell.
  */
 app.on('open-file', function (event, path) {
-  openRom ([path]);
+  openFile ([path]);
 });
 
 /**
@@ -60,6 +60,10 @@ app.on('ready', function() {
 
   mainWindow.on('closed', function() {
     mainWindow = null;
+  });
+  
+  mainWindow.webContents.on ('did-finish-load', function () {
+    mainWindow.send ('close-file');
   });
   
   var mainmenu = [

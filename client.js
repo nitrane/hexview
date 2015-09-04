@@ -53,8 +53,7 @@ var ByteGroup = function (bytes) {
  */
 ipc.on ('load-file', function (path) {
 
-	reset ();	
-	document.querySelector ('#intro').style.display = "none";
+	reset ();
 	
 	memory = new Memory.Memory ();	
 	memory.on ('chunk', function (chunk) {
@@ -72,14 +71,28 @@ ipc.on ('load-file', function (path) {
 /**
  * Get notified when the file is closed.
  */
-ipc.on ('close-file', reset);
+ipc.on ('close-file', intro);
+
+function intro () {
+	
+	reset ();
+	memory = new Memory.Memory ();
+	memory.on ('chunk', function (chunk) {
+		for (var k=0; k < chunk.length; k += 8) {
+			groups.push (new ByteGroup (chunk.slice (k, k + 8)));
+		}
+	})
+	.on ('done', function () {
+		render ();
+	});
+	
+	memory.loadString ('hexview v0.0')
+}
 
 /**
  * Reset the view and free up resources.
  */
 function reset () {
-	
-	document.querySelector ('#intro').style.display = "flex";
 	
 	memory = null;
 	groups.length = 0;
@@ -90,7 +103,7 @@ function reset () {
 	
 	addr.innerHTML = '';
 	hex.innerHTML = '';
-	ascii.innerHTML = '';
+	ascii.innerHTML = '';	
 }
 
 /**

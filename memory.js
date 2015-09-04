@@ -28,3 +28,9 @@ exports.Memory.prototype.loadFile = function (path) {
 			obj = null;
 		});	
 }
+
+exports.Memory.prototype.loadString = function (str) {	
+	this.bytes = new Buffer (str, 'binary');
+	this.emit ('chunk', this.bytes);
+	this.emit ('done');
+}
