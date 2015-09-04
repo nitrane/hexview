@@ -4,7 +4,17 @@ var Memory = require ('./memory.js');
 
 var groups_per_line = 4;
 var groups = [];
-var memory = null;
+var memory = new Memory.Memory ();
+
+memory.on ('chunk', function (chunk) {
+	for (var k=0; k < chunk.length; k += 8) {
+		groups.push (new ByteGroup (chunk.slice (k, k + 8)));
+	}
+})
+.on ('done', function () {
+	render ();
+});
+
 
 /**
  * The ByteGroup object maintains the HTML representation for a group
@@ -52,19 +62,7 @@ var ByteGroup = function (bytes) {
  * Get notified when a new ROM has been selected.
  */
 ipc.on ('load-file', function (path) {
-
 	reset ();
-	
-	memory = new Memory.Memory ();	
-	memory.on ('chunk', function (chunk) {
-		for (var k=0; k < chunk.length; k += 8) {
-			groups.push (new ByteGroup (chunk.slice (k, k + 8)));
-		}
-	})
-	.on ('done', function () {
-		render ();
-	});
-	
 	memory.loadFile (path);
 });
 
@@ -74,18 +72,7 @@ ipc.on ('load-file', function (path) {
 ipc.on ('close-file', intro);
 
 function intro () {
-	
 	reset ();
-	memory = new Memory.Memory ();
-	memory.on ('chunk', function (chunk) {
-		for (var k=0; k < chunk.length; k += 8) {
-			groups.push (new ByteGroup (chunk.slice (k, k + 8)));
-		}
-	})
-	.on ('done', function () {
-		render ();
-	});
-	
 	memory.loadString ('hexview v0.0')
 }
 
@@ -94,7 +81,6 @@ function intro () {
  */
 function reset () {
 	
-	memory = null;
 	groups.length = 0;
 	
 	var addr = document.querySelector ('#addr');
