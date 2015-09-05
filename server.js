@@ -66,6 +66,8 @@ app.on('ready', function() {
     g_mainwindow.send ('close-file');
   });
   
+  g_mainwindow.openDevTools ();
+  
   var mainmenu = [
     {
       label: 'File',
@@ -76,11 +78,11 @@ app.on('ready', function() {
         },
         {
           label: "Close",
-          click: function () { mainWindow.send ('close-file'); }
+          click: function () { g_mainwindow.send ('close-file'); }
         },
         {
           label: 'Exit',
-          click: function () { mainWindow.close (); }
+          click: function () { g_mainwindow.close (); }
         }
       ],
     }

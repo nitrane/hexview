@@ -8,6 +8,9 @@ var g_line = [];
 var g_line_count = 0;
 var g_loader = new loader.Loader ();
 
+/**
+ * Setup to captrue events from the loader.
+ */
 g_loader.on ('chunk', function (chunk) {	
 	for (var k=0; k < chunk.length; k += 8) {
 		var group = new bytegroup.ByteGroup (chunk.slice (k, k+8));
@@ -36,6 +39,9 @@ ipc.on ('load-file', function (path) {
  */
 ipc.on ('close-file', intro);
 
+/**
+ * Render the intro screen.
+ */
 function intro () {
 	reset ();
 	g_loader.loadString ('hexview v0.0')
@@ -57,6 +63,9 @@ function reset () {
 	ascii.innerHTML = '';	
 }
 
+/**
+ * Render byte groups in g_line.
+ */
 function render_line () {
 	
 	var addr = document.querySelector ('#addr');

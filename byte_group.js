@@ -10,8 +10,8 @@ exports.ByteGroup = function (bytes) {
 	
 	for (var k=0; k < bytes.length; ++k) {				
 		
-		var hex_node = document.createElement ('div');
-		var ascii_node = document.createElement ('div');
+		var hex_node = document.createElement ('span');
+		var ascii_node = document.createElement ('span');
 		
 		hex_node.className = 'byte';
 		ascii_node.className = 'ascii';
@@ -36,7 +36,7 @@ exports.ByteGroup = function (bytes) {
 		}
 	}
 	
-	var gap_node = document.createElement ('div');
+	var gap_node = document.createElement ('span');
 	gap_node.className = 'gap';
 	this.hex_frag.appendChild (gap_node);
 }
