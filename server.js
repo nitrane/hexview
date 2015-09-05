@@ -5,15 +5,15 @@ var BrowserWindow = require('browser-window');
 var Menu = require ('menu');
 var dialog = require ('dialog');
 
-var mainWindow = null;
+var g_mainwindow = null;
 
 require('crash-reporter').start();
 
 /**
- * Open a ROM for a disassembly.
+ * Tell the client to open a new file.
  */
 function openFile (filenames) {  
-  mainWindow.send ('load-file', filenames[0]);
+  g_mainwindow.send ('file-open', filenames[0]);
 }
 
 /**
@@ -55,15 +55,15 @@ app.on('open-file', function (event, path) {
  */
 app.on('ready', function() {
   
-  mainWindow = new BrowserWindow ({width: 800, height: 600});
-  mainWindow.loadUrl('file://' + __dirname + '/index.html');
+  g_mainwindow = new BrowserWindow ({width: 800, height: 600});
+  g_mainwindow.loadUrl('file://' + __dirname + '/index.html');
 
-  mainWindow.on('closed', function() {
-    mainWindow = null;
+  g_mainwindow.on('closed', function() {
+    g_mainwindow = null;
   });
   
-  mainWindow.webContents.on ('did-finish-load', function () {
-    mainWindow.send ('close-file');
+  g_mainwindow.webContents.on ('did-finish-load', function () {
+    g_mainwindow.send ('file-close');
   });
   
   var mainmenu = [
@@ -76,16 +76,16 @@ app.on('ready', function() {
         },
         {
           label: "Close",
-          click: function () { mainWindow.send ('close-file'); }
+          click: function () { g_mainwindow.send ('file-close'); }
         },
         {
           label: 'Exit',
-          click: function () { mainWindow.close (); }
+          click: function () { g_mainwindow.close (); }
         }
       ],
     }
   ];
   
   var menu = Menu.buildFromTemplate (mainmenu);
-  mainWindow.setMenu (menu);  
+  g_mainwindow.setMenu (menu);  
 });
