@@ -8,4 +8,9 @@ var ChunkReader = require ('./chunkreader.js');
 var s = new Source.Source ('./junk.bin');
 var cr = new ChunkReader.ChunkReader (s, 4096, 32);
 
-var chunk = cr.fetch (0);
+var chunks =  cr.totalChunks ();
+
+for (var k = 0; k < chunks; ++k) {
+	var chunk = cr.fetch (k);
+	console.log (k + ' ' + chunk.length);
+}
