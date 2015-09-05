@@ -25,7 +25,7 @@ exports.ChunkReader.prototype.totalChunks = function () {
  */
 exports.ChunkReader.prototype.fetch = function (which) {
 	which = Math.max (which, 0);
-	which = Math.min (which, this.totalChunks () - 1);	
+	which = Math.min (which, this.totalChunks () - 1);
 	var start = which * this.chunk_length;
 	return this.source.read (start, this.chunk_length);
 }

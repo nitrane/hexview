@@ -38,7 +38,7 @@ exports.Source.prototype.read = function (start, length) {
 	}
 	
 	var buffer_offset = 0;
-	var bytes_left = Math.min (length, this.totalBytes ());
+	var bytes_left = Math.min (length, this.totalBytes () - start);
 	var buffer = new Buffer (bytes_left);
 	 
 	while (bytes_left > 0) {
