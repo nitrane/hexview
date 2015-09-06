@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "main": "server.js",
   "devDependencies": {
-    "electron-prebuilt": "^0.31.1"
+    "electron-prebuilt": "^0.31.1",
+    "grunt": "^0.4.5"
   }
 }
