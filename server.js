@@ -31,7 +31,7 @@ function openFileDialog () {
     filters: filters 
   }; 
   
-  dialog.showOpenDialog (mainWindow, options, openFile);
+  dialog.showOpenDialog (g_mainwindow, options, openFile);
 }
 
 /**
@@ -63,7 +63,7 @@ app.on('ready', function() {
   });
   
   g_mainwindow.webContents.on ('did-finish-load', function () {
-    g_mainwindow.send ('file-close');
+    g_mainwindow.send ('init');
   });
   
   var mainmenu = [

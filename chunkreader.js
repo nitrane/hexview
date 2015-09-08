@@ -3,12 +3,11 @@
  * ChunkReader constructor.
  * 
  * @param source
- * @param lines_per_chunk
- * @param bytes_per_line
+ * @param chunk_length
  */
-exports.ChunkReader = function (source, lines_per_chunk, bytes_per_line) {
+exports.ChunkReader = function (source, chunk_length) {
 	this.source = source;
-	this.chunk_length = lines_per_chunk * bytes_per_line;
+	this.chunk_length = chunk_length;
 }
 
 /**
@@ -19,13 +18,12 @@ exports.ChunkReader.prototype.totalChunks = function () {
 }
 
 /**
- * Get a chunk at index 'which'.
+ * Get a chunk starting at source position 'pos'.
  * 
  * @param which
  */
-exports.ChunkReader.prototype.fetch = function (which) {
-	which = Math.max (which, 0);
-	which = Math.min (which, this.totalChunks () - 1);
-	var start = which * this.chunk_length;
-	return this.source.read (start, this.chunk_length);
+exports.ChunkReader.prototype.fetch = function (pos) {
+	pos = Math.max (pos, 0);
+	pos = Math.min (pos, this.source.totalBytes ());
+	return this.source.read (pos, this.chunk_length);
 }

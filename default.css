@@ -17,6 +17,7 @@ body {
 	left: 0px;
 	right: 0px;
 	bottom: 0px;
+	overflow: hidden;
 }
 
 #intro {
@@ -29,13 +30,12 @@ body {
 }
 
 #container {
-	overflow: hidden;
 	display: table;
-	width: 100%;
 }
 
 #addr {
 	display: table-cell;
+	overflow: hidden;
 }
 
 #hex {
@@ -44,6 +44,10 @@ body {
 
 #ascii {
 	display: table-cell;
+}
+
+.row {
+	line-height: 14px;
 }
 
 .row:nth-child(even) {
@@ -57,7 +61,6 @@ body {
 }
 
 .byte {
-	display: inline;
 	padding-left: 2px;
 	padding-right: 2px;
 	color: #093C83;
@@ -65,10 +68,8 @@ body {
 
 .gap {
 	padding-right: 10px;
-	display: inline;
 }
 
 .ascii {
-	display: inline;
 	color: #000000;
 }
