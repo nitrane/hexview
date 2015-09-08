@@ -2,6 +2,10 @@
 var fs = require ('fs');
 
 /**
+ * The Source class represents a source of data we read bytes from. 
+ */
+
+/**
  * Source constructor.
  * 
  * @param path

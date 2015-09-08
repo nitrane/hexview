@@ -1,5 +1,7 @@
 
 var ipc = require ('ipc');
+var Source = require ('./source.js');
+var ChunkReader = require ('./chunkreader.js');
 
 /**
  * The ByteGroup object maintains the HTML representation for a group
@@ -48,13 +50,14 @@ var ByteGroup = function (bytes) {
  */
 ipc.on ('file-open', function (path) {
 	reset ();
+	var source = new Source.Source (path);
+	var cr = new ChunkReader.ChunkReader (source, 100, 32);
 });
 
 /**
  * Get notified when the file is closed.
  */
 ipc.on ('file-close', intro);
-
 
 /**
  * Display the title screen.
