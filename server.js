@@ -66,6 +66,10 @@ app.on('ready', function() {
     g_mainwindow.send ('init');
   });
   
+  g_mainwindow.on('resize', function () {
+    g_mainwindow.send ('resize');
+  });
+  
   var mainmenu = [
     {
       label: 'File',

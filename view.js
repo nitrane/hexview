@@ -45,19 +45,25 @@ var ByteGroup = function (bytes) {
 
 exports.View = function () {
 	this.source = null;
+	this.source_position = 0;
 	this.bytes_per_line = 32;
-	render (this);
+	this.render ();
 }
 
 exports.View.prototype.setSource = function (source) {
 	this.source = source;
-	render (this);
+	this.source_position = 0;
+	this.render ();	
 }
 
-function render (view) {
+exports.View.prototype.setSourcePosition = function (source_position) {
+	this.source_position = source_position;
+}
+
+exports.View.prototype.render = function () {
 	
 	var height = window.innerHeight;
-	var total_lines = Math.round (2 * height / 14 + 0.5);
+	var total_lines = Math.round (1.5 * height / 14 + 0.5);
 	
 	var addr = document.querySelector ('#addr');
 	var hex = document.querySelector ('#hex');
@@ -67,17 +73,17 @@ function render (view) {
 	hex.innerHTML = '';
 	ascii.innerHTML = '';
 	
-	if (view.source === null) {
+	if (this.source === null) {
 		return;
 	}
 	
-	var cr = new ChunkReader.ChunkReader (view.source, 
-										  view.bytes_per_line * total_lines);
-	var chunk = cr.fetch (0);	// 0 should be the current scroll position.
+	var cr = new ChunkReader.ChunkReader (this.source, 
+										  this.bytes_per_line * total_lines);
+	var chunk = cr.fetch (this.source_position);
 	
-	for (var k=0; k < chunk.length; k += view.bytes_per_line) {
+	for (var k=0; k < chunk.length; k += this.bytes_per_line) {
 		
-		var group = new ByteGroup (chunk.slice (k, k + view.bytes_per_line));
+		var group = new ByteGroup (chunk.slice (k, k + this.bytes_per_line));
 		
 		var address_node = document.createElement ('div');		
 		var hex_node = document.createElement ('div');
@@ -89,7 +95,7 @@ function render (view) {
 		hex_node.className = 'row';
 		ascii_node.className = 'row';
 		address_node.classList.add ('row', 'addr');
-		address_node.textContent = pad ((k * view.bytes_per_line).toString (16), 8); 
+		address_node.textContent = pad ((k * this.bytes_per_line).toString (16), 8); 
 		addr.appendChild (address_node);
 		hex_node.appendChild (group.hex_frag);
 		hex_node.appendChild (gap_node);
