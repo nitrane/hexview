@@ -20,30 +20,8 @@ body {
 	overflow: hidden;
 }
 
-#intro {
-	align-items: center;
-	display: flex;
-	justify-content: center;
-	height: 50%;
-	color: #093C83;
-	font-size: 30px;
-}
-
 #container {
 	display: table;
-}
-
-#addr {
-	display: table-cell;
-	overflow: hidden;
-}
-
-#hex {
-	display: table-cell;
-}
-
-#ascii {
-	display: table-cell;
 }
 
 .row {
@@ -66,10 +44,10 @@ body {
 	color: #093C83;
 }
 
-.gap {
-	padding-right: 10px;
-}
-
 .ascii {
 	color: #000000;
+}
+
+.gap {
+	padding-right: 10px;
 }
