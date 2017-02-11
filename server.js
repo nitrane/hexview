@@ -10,14 +10,14 @@ var mainWindow = null;
 //require('crash-reporter').start();
 
 /**
- * Open a ROM for a disassembly.
+ * Open a file for hex viewing.
  */
 function openFile (filenames) {  
   mainWindow.send ('load-file', filenames[0]);
 }
 
 /**
- * Prompt the user to select a ROM to open.
+ * Prompt the user to select a file.
  */
 function openFileDialog () {
   

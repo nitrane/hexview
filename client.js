@@ -59,7 +59,7 @@ var ByteGroup = function (bytes) {
 }
 
 /**
- * Get notified when a new ROM has been selected.
+ * Get notified when a new file has been selected.
  */
 ipc.on ('load-file', function (path) {
 	reset ();
@@ -93,7 +93,7 @@ function reset () {
 }
 
 /**
- * Render the hex output of the ROM.
+ * Render the hex output of the file.
  */
 function render () {
 	
