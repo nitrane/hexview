@@ -7,17 +7,17 @@ var dialog = require ('dialog');
 
 var mainWindow = null;
 
-require('crash-reporter').start();
+//require('crash-reporter').start();
 
 /**
- * Open a ROM for a disassembly.
+ * Open a file for hex viewing.
  */
 function openFile (filenames) {  
   mainWindow.send ('load-file', filenames[0]);
 }
 
 /**
- * Prompt the user to select a ROM to open.
+ * Prompt the user to select a file.
  */
 function openFileDialog () {
   
@@ -38,9 +38,7 @@ function openFileDialog () {
  * Handle the window being closed.
  */
 app.on('window-all-closed', function() {
-  if (process.platform != 'darwin') {
-    app.quit();
-  }
+  app.quit();
 });
 
 /**
@@ -87,5 +85,9 @@ app.on('ready', function() {
   ];
   
   var menu = Menu.buildFromTemplate (mainmenu);
-  mainWindow.setMenu (menu);  
+  if (process.platform == 'darwin') {
+    Menu.setApplicationMenu (menu);
+  } else {
+    mainWindow.setMenu (menu);
+  }
 });

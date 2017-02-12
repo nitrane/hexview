@@ -72,3 +72,7 @@ body {
 	display: inline;
 	color: #000000;
 }
+
+.row {
+    height: 16px;
+}
